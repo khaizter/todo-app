@@ -1,0 +1,31 @@
+@use "sass:map";
+@use "../../../global_styles/abstracts" as *;
+
+.todo-list {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  overflow: hidden;
+  &__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    &--dark-theme {
+      background-color: map.get($dark-blue-dark-theme, "650");
+    }
+
+    &--light-theme {
+      background-color: map.get($grayish-blue-light-theme, "350");
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    background-color: map.get($dark-blue-dark-theme, "600");
+    padding: 0.875rem 1.25rem;
+    color: map.get($grayish-blue-dark-theme, "500");
+    font-size: $fs-400;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: 1px solid map.get($grayish-blue-dark-theme, "700");
+  }
+}

@@ -1,0 +1,107 @@
+@use "sass:map";
+@use "../../../global_styles/abstracts" as *;
+
+.todo-item {
+  @include horizontal-bar;
+  gap: 0.875rem;
+  border-top: 1px solid transparent;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  font-size: $fs-400;
+
+  &--dark-theme {
+    background-color: map.get($dark-blue-dark-theme, "600");
+    color: map.get($grayish-blue-dark-theme, "400");
+    border-bottom-color: map.get($grayish-blue-dark-theme, "700");
+    &:not([style=""], .todo-item--dragging, :not([style])) {
+      border-top-color: map.get($grayish-blue-dark-theme, "700");
+    }
+  }
+
+  &--light-theme {
+    background-color: map.get($grayish-blue-light-theme, "300");
+    color: map.get($grayish-blue-light-theme, "700");
+    border-bottom-color: map.get($grayish-blue-light-theme, "500");
+    &:not([style=""], .todo-item--dragging, :not([style])) {
+      border-top-color: map.get($grayish-blue-light-theme, "500");
+    }
+  }
+
+  &:hover > &__delete {
+    display: inline-block;
+  }
+
+  @media (min-width: 550px) {
+    font-size: $fs-500;
+  }
+
+  &:not([style=""], &--dragging, :not([style])) {
+    border-top-width: 1px;
+    border-top-style: solid;
+  }
+
+  &:not([style=""], &--dragging) ~ &:not([style=""], &--dragging) {
+    border-top: 1px solid transparent;
+  }
+
+  &--dragging {
+    box-shadow: 0 0 2px rgb(0 0 0 / 50%);
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  &__status {
+    @include reset-button;
+    @include bullet;
+  }
+
+  &__todo {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    &--complete {
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+    }
+
+    &--complete#{&}--dark-theme {
+      color: map.get($grayish-blue-dark-theme, "600");
+    }
+
+    &--complete#{&}--light-theme {
+      color: map.get($grayish-blue-light-theme, "500");
+    }
+  }
+
+  &__delete {
+    @include reset-button;
+    display: none;
+    padding: 0.05rem;
+
+    svg {
+      display: block;
+      transform: scale(0.7);
+    }
+
+    &:hover svg {
+      transform: scale(0.8);
+    }
+
+    &--dark-theme svg {
+      color: map.get($grayish-blue-dark-theme, "600");
+    }
+
+    &--dark-theme:hover svg {
+      color: map.get($grayish-blue-dark-theme, "500");
+    }
+
+    &--light-theme svg {
+      color: map.get($grayish-blue-light-theme, "700");
+    }
+
+    &--light-theme:hover svg {
+      color: map.get($grayish-blue-light-theme, "600");
+    }
+  }
+}

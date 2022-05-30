@@ -1,0 +1,35 @@
+// Primary Colors
+
+$bright-blue: hsl(220, 98%, 61%);
+$purple-gradient: linear-gradient(
+  45deg,
+  hsl(192, 100%, 67%),
+  hsl(280, 87%, 65%)
+);
+
+// Light Theme Colors
+
+$grayish-blue-light-theme: (
+  "300": hsl(0, 0%, 98%),
+  "350": hsl(231, 26%, 95%),
+  "400": hsl(235, 32%, 92%),
+  "500": hsl(233, 11%, 84%),
+  "600": hsl(236, 9%, 61%),
+  "700": hsl(235, 19%, 35%),
+);
+
+// Dark Theme Colors
+
+$dark-blue-dark-theme: (
+  "700": hsl(235, 21%, 11%),
+  "650": hsl(235, 22.5%, 15%),
+  "600": hsl(235, 24%, 19%),
+);
+
+$grayish-blue-dark-theme: (
+  "300": hsl(236, 33%, 92%),
+  "400": hsl(234, 39%, 85%),
+  "500": hsl(234, 11%, 52%),
+  "600": hsl(233, 14%, 35%),
+  "700": hsl(237, 14%, 26%),
+);

@@ -1,0 +1,45 @@
+@use "sass:map";
+@use "../../../global_styles/abstracts" as *;
+
+.todo-create {
+  @include horizontal-bar;
+  gap: 0.875rem;
+  border-radius: 4px;
+  font-size: $fs-400;
+
+  @media (min-width: 550px) {
+    font-size: $fs-500;
+  }
+
+  &--dark-theme {
+    background-color: map.get($dark-blue-dark-theme, "600");
+    color: map.get($grayish-blue-dark-theme, "300");
+    input::placeholder {
+      color: map.get($grayish-blue-dark-theme, "500");
+    }
+  }
+
+  &--light-theme {
+    background-color: map.get($grayish-blue-light-theme, "300");
+    color: map.get($grayish-blue-light-theme, "700");
+    input::placeholder {
+      color: map.get($grayish-blue-light-theme, "600");
+    }
+  }
+
+  &__bullet {
+    @include reset-button;
+    @include bullet;
+    display: block;
+  }
+
+  &__input {
+    border: none;
+    background: none;
+    flex: 1;
+    font-size: inherit;
+    color: inherit;
+    outline: none;
+    caret-color: $bright-blue;
+  }
+}

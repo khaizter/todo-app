@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "../../../global_styles/abstracts" as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 35rem;
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+
+  &__title {
+    font-size: clamp(1.5rem, 1rem + 3.9vw, 2.2rem);
+    letter-spacing: 10px;
+    color: map.get($grayish-blue-dark-theme, "400");
+  }
+
+  &__toggle-theme {
+    display: block;
+    @include reset-button;
+    svg {
+      color: map.get($grayish-blue-dark-theme, "400");
+    }
+  }
+}
