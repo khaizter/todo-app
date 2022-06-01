@@ -4,6 +4,7 @@ import CheckIcon from "../../icon/CheckIcon";
 import CrossIcon from "../../icon/CrossIcon";
 import TodoContext from "../../../store/todo-context";
 import { Draggable } from "react-beautiful-dnd";
+import { motion } from "framer-motion";
 
 const TodoItem = ({ item, index }) => {
   const { status, todo } = item;
@@ -20,13 +21,16 @@ const TodoItem = ({ item, index }) => {
   return (
     <Draggable draggableId={item.id} index={index}>
       {(provided, snapshot) => (
-        <li
+        <motion.li
           className={`todo-item ${
             snapshot.isDragging ? "todo-item--dragging" : ""
           } todo-item--${todoCtx.theme}-theme`}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
         >
           <button
             className={`todo-item__status ${
@@ -49,7 +53,7 @@ const TodoItem = ({ item, index }) => {
           >
             <CrossIcon />
           </button>
-        </li>
+        </motion.li>
       )}
     </Draggable>
   );

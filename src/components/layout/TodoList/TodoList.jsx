@@ -3,7 +3,8 @@ import React, { useContext } from "react";
 import TodoItem from "../TodoItem/TodoItem";
 import TodoFilter from "../TodoFilter/TodoFilter";
 import TodoContext from "../../../store/todo-context";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { AnimatePresence } from "framer-motion";
 
 const TodoList = () => {
   const todoCtx = useContext(TodoContext);
@@ -25,9 +26,11 @@ const TodoList = () => {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {todoCtx.filteredItems.map((item, index) => (
-                  <TodoItem key={item.id} item={item} index={index} />
-                ))}
+                <AnimatePresence>
+                  {todoCtx.filteredItems.map((item, index) => (
+                    <TodoItem key={item.id} item={item} index={index} />
+                  ))}
+                </AnimatePresence>
                 {provided.placeholder}
               </ul>
             )}
