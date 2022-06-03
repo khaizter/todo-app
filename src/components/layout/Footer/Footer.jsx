@@ -8,14 +8,17 @@ const Footer = () => {
     <footer className={`footer footer--${todoCtx.theme}-theme`}>
       <p>
         Challenge by{" "}
-        <a href="#" className="footer__highlight">
+        <a
+          href="https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW"
+          className="footer__highlight"
+        >
           Frontend Mentor
         </a>
         .
       </p>
       <p>
         Coded by{" "}
-        <a href="#" className="footer__highlight">
+        <a href="https://github.com/khaizter" className="footer__highlight">
           Khaizter
         </a>
         .
