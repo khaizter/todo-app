@@ -41,7 +41,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Github]](https://github.com/khaizter/todo-app)
+- Solution URL: [Github](https://github.com/khaizter/todo-app)
 - Live Site URL: [Github Page](https://khaizter.github.io/todo-app)
 
 ## My process
