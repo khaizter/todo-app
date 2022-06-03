@@ -1,6 +1,7 @@
 import "./TodoFilter.scss";
 import React, { useContext, useState, useEffect } from "react";
 import TodoContext from "../../../store/todo-context";
+import { motion } from "framer-motion";
 
 const TodoFilter = () => {
   const [filter, setFilter] = useState("all");
@@ -15,7 +16,7 @@ const TodoFilter = () => {
   ).length;
 
   return (
-    <section className="todo-filter">
+    <motion.section className="todo-filter">
       <div
         className={`todo-filter__actions todo-filter__actions--${todoCtx.theme}-theme`}
       >
@@ -81,7 +82,7 @@ const TodoFilter = () => {
           Completed
         </button>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

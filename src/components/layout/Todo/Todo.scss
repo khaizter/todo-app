@@ -10,6 +10,7 @@
   margin-top: 1.25rem;
   position: relative;
   z-index: 1;
+  transition: all 0.5s ease-out;
 
   &--dark-theme {
     color: map.get($grayish-blue-dark-theme, "600");

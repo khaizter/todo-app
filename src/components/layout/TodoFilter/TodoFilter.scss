@@ -12,6 +12,7 @@
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     font-size: $fs-300;
+    transition: all 0.5s ease-out;
 
     &--dark-theme {
       background-color: map.get($dark-blue-dark-theme, "600");
@@ -40,6 +41,7 @@
 
   &__filters {
     display: none;
+    transition: background-color 0.5s ease-out, color 0.5s ease-out;
 
     &--dark-theme {
       background-color: map.get($dark-blue-dark-theme, "600");
@@ -58,8 +60,7 @@
       border-radius: 4px;
     }
 
-    @media (min-width: 550px) {
-      display: block;
+    @media (min-width: 34.375em) {
       display: flex;
       justify-content: center;
       gap: 1.25rem;

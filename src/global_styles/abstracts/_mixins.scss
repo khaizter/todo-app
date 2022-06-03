@@ -19,7 +19,7 @@
   align-items: center;
   padding: 1rem 1.25rem;
 
-  @media (min-width: 550px) {
+  @media (min-width: 34.375em) {
     padding: 1.25rem 1.5rem;
   }
 }
@@ -30,7 +30,16 @@
   height: 1.25rem;
   border-radius: 50%;
 
-  @media (min-width: 550px) {
+  &,
+  &::before {
+    transition: all 0.5s ease-out;
+  }
+
+  &::after {
+    transition: background-color 0.5s ease-out, transform 0.2s ease-out;
+  }
+
+  @media (min-width: 34.375em) {
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -104,7 +113,7 @@
     }
 
     &::after {
-      display: none;
+      transform: scale(0);
     }
   }
   &--complete#{&}--dark-theme:hover svg {

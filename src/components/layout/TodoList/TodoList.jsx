@@ -4,7 +4,12 @@ import TodoItem from "../TodoItem/TodoItem";
 import TodoFilter from "../TodoFilter/TodoFilter";
 import TodoContext from "../../../store/todo-context";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+
+const todoListVariants = {
+  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 50 },
+};
 
 const TodoList = () => {
   const todoCtx = useContext(TodoContext);
@@ -16,12 +21,21 @@ const TodoList = () => {
   };
 
   return (
-    <section className="todo-list">
+    <motion.section
+      className="todo-list"
+      variants={todoListVariants}
+      transition={{
+        ease: "easeOut",
+        duration: 0.5,
+        when: "beforeChildren",
+        staggerChildren: 0.2,
+      }}
+    >
       {todoCtx.filteredItems.length ? (
         <DragDropContext onDragEnd={onDragEndHandler}>
           <Droppable droppableId="todo-list">
             {(provided) => (
-              <ul
+              <motion.ul
                 className={`todo-list__items todo-list__items--${todoCtx.theme}-theme`}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
@@ -32,15 +46,19 @@ const TodoList = () => {
                   ))}
                 </AnimatePresence>
                 {provided.placeholder}
-              </ul>
+              </motion.ul>
             )}
           </Droppable>
         </DragDropContext>
       ) : (
-        <div className="todo-list__empty">The list is empty</div>
+        <div
+          className={`todo-list__empty todo-list__empty--${todoCtx.theme}-theme`}
+        >
+          The list is empty
+        </div>
       )}
       <TodoFilter />
-    </section>
+    </motion.section>
   );
 };
 

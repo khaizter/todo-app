@@ -6,8 +6,9 @@
   gap: 0.875rem;
   border-radius: 4px;
   font-size: $fs-400;
+  transition: all 0.5s ease-out;
 
-  @media (min-width: 550px) {
+  @media (min-width: 34.375em) {
     font-size: $fs-500;
   }
 

@@ -2,6 +2,12 @@ import "./TodoCreate.scss";
 import React, { useState, useRef, useContext } from "react";
 import CheckIcon from "../../icon/CheckIcon";
 import TodoContext from "../../../store/todo-context";
+import { motion } from "framer-motion";
+
+const todoCreateVariants = {
+  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 50 },
+};
 
 const TodoCreate = () => {
   const [status, setStatus] = useState("active");
@@ -25,7 +31,11 @@ const TodoCreate = () => {
   };
 
   return (
-    <section className={`todo-create todo-create--${todoCtx.theme}-theme`}>
+    <motion.section
+      className={`todo-create todo-create--${todoCtx.theme}-theme`}
+      variants={todoCreateVariants}
+      transition={{ ease: "easeOut", duration: 0.5 }}
+    >
       <button
         className={`todo-create__bullet ${
           status === "complete" ? "todo-create__bullet--complete" : ""
@@ -41,7 +51,7 @@ const TodoCreate = () => {
         ref={inputRef}
         onKeyDown={(e) => e.key === "Enter" && createTodoHandler()}
       />
-    </section>
+    </motion.section>
   );
 };
 

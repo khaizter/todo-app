@@ -14,12 +14,13 @@ const TodoContext = React.createContext({
 });
 
 const DUMMY_ITEMS = [
-  { id: "2001", todo: "Complete online Javascript course", status: "complete" },
-  { id: "2002", todo: "10 minutes meditation", status: "active" },
-  { id: "2003", todo: "12 minutes meditation", status: "active" },
-  { id: "2004", todo: "13 minutes meditation", status: "active" },
+  { id: "2001", todo: "Complete online JavaScript course", status: "complete" },
+  { id: "2002", todo: "Jog around the park 3x", status: "active" },
+  { id: "2003", todo: "10 minutes meditation", status: "active" },
+  { id: "2004", todo: "Read for 1 hour", status: "active" },
+  { id: "2005", todo: "Pick up groceriess", status: "active" },
   {
-    id: "2005",
+    id: "2006",
     todo: "Complete Todo App on Frontend Mentor",
     status: "active",
   },

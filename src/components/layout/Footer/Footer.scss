@@ -1,0 +1,37 @@
+@use "sass:map";
+@use "../../../global_styles/abstracts" as *;
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  align-items: center;
+  text-align: center;
+  font-size: $fs-400;
+
+  @media (min-width: 56.25em) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &--dark-theme {
+    color: map.get($grayish-blue-dark-theme, "500");
+  }
+
+  &--light-theme {
+    color: map.get($grayish-blue-light-theme, "700");
+  }
+
+  &__highlight {
+    color: $bright-blue;
+    text-decoration: none;
+  }
+  p {
+    margin: 0rem;
+  }
+}

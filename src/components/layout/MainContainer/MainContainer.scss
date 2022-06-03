@@ -4,8 +4,8 @@
 .main-container {
   position: relative;
   padding: 1.5rem;
-  height: 100vh;
-
+  min-height: 100vh;
+  transition: all 0.5s ease-out;
   &--dark-theme {
     background-color: map.get($dark-blue-dark-theme, "700");
   }
@@ -28,7 +28,7 @@
       display: none;
     }
 
-    @media (min-width: 600px) {
+    @media (min-width: 37.5em) {
       &--mobile {
         display: none;
       }
@@ -37,7 +37,7 @@
       }
     }
   }
-  @media (min-width: 600px) {
+  @media (min-width: 37.5em) {
     padding: 3rem;
   }
 }
