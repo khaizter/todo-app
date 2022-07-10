@@ -42,7 +42,7 @@ const TodoList = () => {
               >
                 <AnimatePresence>
                   {todoCtx.filteredItems.map((item, index) => (
-                    <TodoItem key={item.id} item={item} index={index} />
+                    <TodoItem key={item._id} item={item} index={index} />
                   ))}
                 </AnimatePresence>
                 {provided.placeholder}

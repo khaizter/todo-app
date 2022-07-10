@@ -8,7 +8,6 @@ const SunIcon = (props) => {
       width="26"
       height="26"
       {...props}
-      key="sun"
       animate={{ y: 0, opacity: 1 }}
       initial={{ y: "50%", opacity: 0 }}
       exit={{ y: "100%", opacity: 0 }}

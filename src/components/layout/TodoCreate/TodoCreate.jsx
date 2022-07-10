@@ -10,15 +10,17 @@ const todoCreateVariants = {
 };
 
 const TodoCreate = () => {
-  const [status, setStatus] = useState("active");
+  const [status, setStatus] = useState("in progress");
   const inputRef = useRef();
   const todoCtx = useContext(TodoContext);
 
   const createTodoHandler = () => {
+    if (inputRef.current.value.trim() === "") {
+      return;
+    }
     todoCtx.createTodo({
-      id: Math.random().toString(),
+      task: inputRef.current.value,
       status: status,
-      todo: inputRef.current.value,
     });
 
     inputRef.current.value = "";
@@ -26,7 +28,7 @@ const TodoCreate = () => {
 
   const toggleStatusHandler = () => {
     setStatus((prevState) => {
-      return prevState === "active" ? "complete" : "active";
+      return prevState === "in progress" ? "done" : "in progress";
     });
   };
 
@@ -38,7 +40,7 @@ const TodoCreate = () => {
     >
       <button
         className={`todo-create__bullet ${
-          status === "complete" ? "todo-create__bullet--complete" : ""
+          status === "done" ? "todo-create__bullet--complete" : ""
         } todo-create__bullet--${todoCtx.theme}-theme`}
         onClick={toggleStatusHandler}
       >

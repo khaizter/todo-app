@@ -2,6 +2,10 @@ import "./MainContainer.scss";
 import React, { Fragment, useContext } from "react";
 import TodoContext from "../../../store/todo-context";
 import { AnimatePresence, motion } from "framer-motion";
+import darkMobileImage from "../../../images/bg-mobile-dark.jpg";
+import lightMobileImage from "../../../images/bg-mobile-light.jpg";
+import darkDesktopImage from "../../../images/bg-desktop-dark.jpg";
+import lightDesktopImage from "../../../images/bg-desktop-light.jpg";
 
 const MainContainer = ({ children }) => {
   const todoCtx = useContext(TodoContext);
@@ -13,7 +17,7 @@ const MainContainer = ({ children }) => {
           <Fragment>
             <motion.img
               key="mobile"
-              src={`./images/bg-mobile-dark.jpg`}
+              src={darkMobileImage}
               aria-hidden={true}
               className="main-container__background main-container__background--mobile"
               animate={{ opacity: 1 }}
@@ -23,7 +27,7 @@ const MainContainer = ({ children }) => {
             />
             <motion.img
               key="desktop"
-              src={`./images/bg-desktop-dark.jpg`}
+              src={darkDesktopImage}
               aria-hidden={true}
               className="main-container__background main-container__background--desktop"
               animate={{ opacity: 1 }}
@@ -39,7 +43,7 @@ const MainContainer = ({ children }) => {
           <Fragment>
             <motion.img
               key="mobile"
-              src={`./images/bg-mobile-light.jpg`}
+              src={lightMobileImage}
               aria-hidden={true}
               className="main-container__background main-container__background--mobile"
               animate={{ opacity: 1 }}
@@ -49,7 +53,7 @@ const MainContainer = ({ children }) => {
             />
             <motion.img
               key="desktop"
-              src={`./images/bg-desktop-light.jpg`}
+              src={lightDesktopImage}
               aria-hidden={true}
               className="main-container__background main-container__background--desktop"
               animate={{ opacity: 1 }}

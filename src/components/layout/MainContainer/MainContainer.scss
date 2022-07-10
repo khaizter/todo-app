@@ -2,6 +2,10 @@
 @use "../../../global_styles/abstracts" as *;
 
 .main-container {
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+  justify-items: stretch;
+  align-items: start;
   position: relative;
   padding: 1.5rem;
   min-height: 100vh;

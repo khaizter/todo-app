@@ -9,10 +9,10 @@ const TodoFilter = () => {
 
   useEffect(() => {
     todoCtx.setFilter(filter);
-  }, [filter]);
+  }, [filter, todoCtx]);
 
   const activeItemsLeft = todoCtx.items.filter(
-    (item) => item.status === "active"
+    (item) => item.status === "in progress"
   ).length;
 
   return (
@@ -31,20 +31,20 @@ const TodoFilter = () => {
             All
           </button>
           <button
-            onClick={() => setFilter("active")}
+            onClick={() => setFilter("in progress")}
             className={`todo-filter__filter ${
-              filter === "active" ? "todo-filter__filter--active" : ""
+              filter === "in progress" ? "todo-filter__filter--active" : ""
             } todo-filter__filter--${todoCtx.theme}-theme`}
           >
             Active
           </button>
           <button
-            onClick={() => setFilter("complete")}
+            onClick={() => setFilter("done")}
             className={`todo-filter__filter ${
-              filter === "complete" ? "todo-filter__filter--active" : ""
+              filter === "done" ? "todo-filter__filter--active" : ""
             } todo-filter__filter--${todoCtx.theme}-theme`}
           >
-            Completed
+            Complete
           </button>
         </div>
         <button
@@ -66,17 +66,17 @@ const TodoFilter = () => {
           All
         </button>
         <button
-          onClick={() => setFilter("active")}
+          onClick={() => setFilter("in progress")}
           className={`todo-filter__filter ${
-            filter === "active" ? "todo-filter__filter--active" : ""
+            filter === "in progress" ? "todo-filter__filter--active" : ""
           } todo-filter__filter--${todoCtx.theme}-theme`}
         >
           Active
         </button>
         <button
-          onClick={() => setFilter("complete")}
+          onClick={() => setFilter("done")}
           className={`todo-filter__filter ${
-            filter === "complete" ? "todo-filter__filter--active" : ""
+            filter === "done" ? "todo-filter__filter--active" : ""
           } todo-filter__filter--${todoCtx.theme}-theme`}
         >
           Completed

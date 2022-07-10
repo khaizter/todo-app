@@ -12,19 +12,19 @@ const itemVariants = {
 };
 
 const TodoItem = ({ item, index }) => {
-  const { status, todo } = item;
+  const { status, task } = item;
   const todoCtx = useContext(TodoContext);
 
   const toggleStatus = () => {
-    todoCtx.toggleTodoStatus(item.id);
+    todoCtx.toggleTodoStatus(item._id, item.status);
   };
 
   const deleteHandler = () => {
-    todoCtx.deleteTodo(item.id);
+    todoCtx.deleteTodo(item._id);
   };
 
   return (
-    <Draggable draggableId={item.id} index={index}>
+    <Draggable draggableId={item._id} index={index}>
       {(provided, snapshot) => (
         <motion.li
           className={`todo-item ${
@@ -40,7 +40,7 @@ const TodoItem = ({ item, index }) => {
         >
           <button
             className={`todo-item__status ${
-              status === "complete" ? "todo-item__status--complete" : ""
+              status === "done" ? "todo-item__status--complete" : ""
             } todo-item__status--${todoCtx.theme}-theme`}
             onClick={toggleStatus}
           >
@@ -48,10 +48,10 @@ const TodoItem = ({ item, index }) => {
           </button>
           <span
             className={`todo-item__todo ${
-              status === "complete" ? "todo-item__todo--complete" : ""
+              status === "done" ? "todo-item__todo--complete" : ""
             } todo-item__todo--${todoCtx.theme}-theme`}
           >
-            {todo}
+            {task}
           </span>
           <button
             className={`todo-item__delete todo-item__delete--${todoCtx.theme}-theme`}
