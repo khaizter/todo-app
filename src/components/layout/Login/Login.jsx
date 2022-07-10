@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import "./Login.scss";
+import CustomInput from "../CustomInput/CustomInput";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Required").email("Invalid email address"),
@@ -30,31 +31,34 @@ const Login = () => {
 
   return (
     <main className="login">
-      <h1>Sign In</h1>
+      <h1 className="login__title">Sign In</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={submitHandler}
       >
-        <Form className="login__form">
-          <div className="login__form-labels">
-            <label htmlFor="email">E-mail</label>
-            <span>
-              <ErrorMessage name="email" />
-            </span>
-          </div>
-          <Field type="email" id="email" name="email" />
-          <div className="login__form-labels">
-            <label htmlFor="password">Password</label>
-            <span>
-              <ErrorMessage name="password" />
-            </span>
-          </div>
-          <Field type="password" id="password" name="password" />
-          <button>Sign In</button>
-        </Form>
+        {(props) => (
+          <Form className="login__form" autoComplete="off" novalidate>
+            <CustomInput
+              formikProps={props}
+              type="email"
+              name="email"
+              label="E-mail"
+            />
+
+            <CustomInput
+              formikProps={props}
+              type="password"
+              name="password"
+              label="Password"
+              togglePassword={true}
+            />
+
+            <button className="login__submit">Sign In</button>
+          </Form>
+        )}
       </Formik>
-      <Link to="/signup">Create an account</Link>
+      <Link to="/signup">Create account</Link>
     </main>
   );
 };

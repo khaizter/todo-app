@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 import TodoContext from "../../../store/todo-context";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import CustomInput from "../CustomInput/CustomInput";
 
 import "./SignUp.scss";
+import { useRef } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -31,6 +35,7 @@ const initialValues = {
 
 const SignUp = () => {
   const todoCtx = useContext(TodoContext);
+  const [isNameActive, setIsNameActive] = useState(false);
 
   const submitHandler = (values, actions) => {
     const formData = {
@@ -44,45 +49,46 @@ const SignUp = () => {
 
   return (
     <main className="signup">
-      <h1>Sign Up</h1>
+      <h1 className="signup__title">Sign Up</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={submitHandler}
       >
-        <Form className="signup__form">
-          <div className="signup__form-labels">
-            <label htmlFor="name">Name </label>
-            <span>
-              <ErrorMessage name="name" />
-            </span>
-          </div>
-          <Field type="text" id="name" name="name" />
-          <div className="signup__form-labels">
-            <label htmlFor="email">E-mail</label>
-            <span>
-              <ErrorMessage name="email" />
-            </span>
-          </div>
-          <Field type="email" id="email" name="email" />
-          <div className="signup__form-labels">
-            <label htmlFor="password">Password</label>
-            <span>
-              <ErrorMessage name="password" />
-            </span>
-          </div>
-          <Field type="password" id="password" name="password" />
-          <div className="signup__form-labels">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <span>
-              <ErrorMessage name="confirmPassword" />
-            </span>
-          </div>
-          <Field type="password" id="confirmPassword" name="confirmPassword" />
-          <button type="submit">Sign Up</button>
-        </Form>
+        {(props) => (
+          <Form className="signup__form" autoComplete="off" novalidate>
+            <CustomInput
+              formikProps={props}
+              type="text"
+              name="name"
+              label="Name"
+            />
+            <CustomInput
+              formikProps={props}
+              type="email"
+              name="email"
+              label="E-mail"
+            />
+            <CustomInput
+              formikProps={props}
+              type="password"
+              name="password"
+              label="Password"
+              togglePassword={true}
+            />
+            <CustomInput
+              formikProps={props}
+              type="password"
+              name="confirmPassword"
+              label="Confirm Password"
+            />
+            <button type="submit" className="signup__submit">
+              Sign Up
+            </button>
+          </Form>
+        )}
       </Formik>
-      <Link to="/signin">Already have account</Link>
+      <Link to="/signin">Already have an account?</Link>
     </main>
   );
 };

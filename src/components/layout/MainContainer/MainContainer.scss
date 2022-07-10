@@ -7,7 +7,8 @@
   justify-items: stretch;
   align-items: start;
   position: relative;
-  padding: 1.5rem;
+  padding-top: 1.5rem;
+  padding-inline: 1.5rem;
   min-height: 100vh;
   transition: all 0.5s ease-out;
   &--dark-theme {
@@ -42,6 +43,7 @@
     }
   }
   @media (min-width: 37.5em) {
-    padding: 3rem;
+    padding-top: 3rem;
+    padding-inline: 3rem;
   }
 }
