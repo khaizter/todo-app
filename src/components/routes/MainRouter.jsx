@@ -1,30 +1,33 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Todo from "../layout/Todo/Todo";
 import Login from "../layout/Login/Login";
 import SignUp from "../layout/SignUp/SignUp";
-import { useContext } from "react";
-import TodoContext from "../../store/todo-context";
+import { AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const MainRouter = () => {
-  const todoCtx = useContext(TodoContext);
+  const currentToken = useSelector((state) => state.auth.token);
+  const location = useLocation();
 
   return (
-    <Routes>
-      {todoCtx.userToken && (
-        <>
-          <Route path="todo" element={<Todo />} />
-          <Route path="*" element={<Navigate to="todo" />} />
-        </>
-      )}
-      {!todoCtx.userToken && (
-        <>
-          <Route path="signin" element={<Login />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="*" element={<Navigate to="signin" />} />
-        </>
-      )}
-    </Routes>
+    <AnimatePresence exitBeforeEnter>
+      <Routes location={location} key={location.pathname}>
+        {currentToken && (
+          <>
+            <Route path="todo" element={<Todo />} />
+            <Route path="*" element={<Navigate to="todo" />} />
+          </>
+        )}
+        {!currentToken && (
+          <>
+            <Route path="signin" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="*" element={<Navigate to="signin" />} />
+          </>
+        )}
+      </Routes>
+    </AnimatePresence>
   );
 };
 

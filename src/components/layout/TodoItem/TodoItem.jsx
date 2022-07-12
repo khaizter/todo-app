@@ -1,10 +1,11 @@
 import "./TodoItem.scss";
-import React, { useContext } from "react";
+import React from "react";
 import CheckIcon from "../../icon/CheckIcon";
 import CrossIcon from "../../icon/CrossIcon";
-import TodoContext from "../../../store/todo-context";
 import { Draggable } from "react-beautiful-dnd";
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTaskStatus, deleteTask } from "../../../store/todo";
 
 const itemVariants = {
   visible: { opacity: 1 },
@@ -13,14 +14,15 @@ const itemVariants = {
 
 const TodoItem = ({ item, index }) => {
   const { status, task } = item;
-  const todoCtx = useContext(TodoContext);
+  const currentTheme = useSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
 
   const toggleStatus = () => {
-    todoCtx.toggleTodoStatus(item._id, item.status);
+    dispatch(toggleTaskStatus(item._id, item.status));
   };
 
   const deleteHandler = () => {
-    todoCtx.deleteTodo(item._id);
+    dispatch(deleteTask(item._id));
   };
 
   return (
@@ -29,7 +31,7 @@ const TodoItem = ({ item, index }) => {
         <motion.li
           className={`todo-item ${
             snapshot.isDragging ? "todo-item--dragging" : ""
-          } todo-item--${todoCtx.theme}-theme`}
+          } todo-item--${currentTheme}-theme`}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -41,7 +43,7 @@ const TodoItem = ({ item, index }) => {
           <button
             className={`todo-item__status ${
               status === "done" ? "todo-item__status--complete" : ""
-            } todo-item__status--${todoCtx.theme}-theme`}
+            } todo-item__status--${currentTheme}-theme`}
             onClick={toggleStatus}
           >
             <CheckIcon />
@@ -49,12 +51,12 @@ const TodoItem = ({ item, index }) => {
           <span
             className={`todo-item__todo ${
               status === "done" ? "todo-item__todo--complete" : ""
-            } todo-item__todo--${todoCtx.theme}-theme`}
+            } todo-item__todo--${currentTheme}-theme`}
           >
             {task}
           </span>
           <button
-            className={`todo-item__delete todo-item__delete--${todoCtx.theme}-theme`}
+            className={`todo-item__delete todo-item__delete--${currentTheme}-theme`}
             onClick={deleteHandler}
           >
             <CrossIcon />

@@ -1,9 +1,10 @@
-import "./Todo.scss";
-import React, { useContext } from "react";
+import React from "react";
 import TodoCreate from "../TodoCreate/TodoCreate";
 import TodoList from "../TodoList/TodoList";
-import TodoContext from "../../../store/todo-context";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+
+import "./Todo.scss";
 
 const mainTodoVariants = {
   visible: { transition: { staggerChildren: 0.5 } },
@@ -16,10 +17,10 @@ const dragTextVariants = {
 };
 
 const Todo = () => {
-  const todoCtx = useContext(TodoContext);
+  const currentTheme = useSelector((state) => state.theme.theme);
   return (
     <motion.main
-      className={`todo todo--${todoCtx.theme}-theme`}
+      className={`todo todo--${currentTheme}-theme`}
       variants={mainTodoVariants}
       initial="hidden"
       animate="visible"

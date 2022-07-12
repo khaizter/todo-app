@@ -7,9 +7,24 @@
   width: min(35rem, 100%);
   margin-inline: auto;
   border-radius: 4px;
-  background-color: map.get($dark-blue-dark-theme, "600");
-  color: map.get($grayish-blue-dark-theme, "300");
   padding: 1rem 1.25rem;
+  transition: all 0.5s ease-out;
+
+  &--dark-theme {
+    background-color: map.get($dark-blue-dark-theme, "600");
+    color: map.get($grayish-blue-dark-theme, "300");
+    a {
+      color: map.get($grayish-blue-dark-theme, "500");
+    }
+  }
+
+  &--light-theme {
+    background-color: map.get($grayish-blue-light-theme, "300");
+    color: map.get($grayish-blue-light-theme, "700");
+    a {
+      color: map.get($grayish-blue-light-theme, "600");
+    }
+  }
 
   @media (min-width: 34.375em) {
     padding: 1.25rem 1.5rem;
@@ -31,15 +46,14 @@
     margin-top: 1rem;
     margin-bottom: 2rem;
     border: none;
-    color: map.get($grayish-blue-dark-theme, "300");
-    background-color: map.get($grayish-blue-dark-theme, "700");
-    background-color: #bc252a;
     border-radius: 8px;
     font-size: $fs-500;
     font-weight: $fw-700;
     padding: 1rem;
     width: min(12rem, 100%);
     cursor: pointer;
+    background-color: $bright-blue;
+    color: map.get($grayish-blue-light-theme, "300");
   }
 
   a {
@@ -48,7 +62,7 @@
     text-decoration: none;
     text-transform: uppercase;
     margin-bottom: 1rem;
-    color: map.get($grayish-blue-dark-theme, "500");
     font-size: $fs-300;
+    transition: all 0.5s ease-out;
   }
 }

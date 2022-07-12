@@ -1,83 +1,100 @@
 import "./TodoFilter.scss";
-import React, { useContext, useState, useEffect } from "react";
-import TodoContext from "../../../store/todo-context";
+import React from "react";
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCompleteTask, setFilter } from "../../../store/todo";
 
 const TodoFilter = () => {
-  const [filter, setFilter] = useState("all");
-  const todoCtx = useContext(TodoContext);
+  const currentFilter = useSelector((state) => state.todo.filter);
+  const currentTheme = useSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    todoCtx.setFilter(filter);
-  }, [filter, todoCtx]);
+  const activeItemsLeft = useSelector((state) => {
+    return state.todo.items.filter((item) => item.status === "in progress")
+      .length;
+  });
 
-  const activeItemsLeft = todoCtx.items.filter(
-    (item) => item.status === "in progress"
-  ).length;
+  const setFilterAll = () => {
+    dispatch(setFilter("all"));
+  };
+
+  const setFilterInProgress = () => {
+    dispatch(setFilter("in progress"));
+  };
+
+  const setFilterDone = () => {
+    dispatch(setFilter("done"));
+  };
+
+  const clearCompleteHandler = () => {
+    dispatch(clearCompleteTask());
+  };
 
   return (
     <motion.section className="todo-filter">
       <div
-        className={`todo-filter__actions todo-filter__actions--${todoCtx.theme}-theme`}
+        className={`todo-filter__actions todo-filter__actions--${currentTheme}-theme`}
       >
         <span>{activeItemsLeft} items left</span>
         <div className="todo-filter__filters">
           <button
-            onClick={() => setFilter("all")}
+            onClick={setFilterAll}
             className={`todo-filter__filter ${
-              filter === "all" ? "todo-filter__filter--active" : ""
-            } todo-filter__filter--${todoCtx.theme}-theme`}
+              currentFilter === "all" ? "todo-filter__filter--active" : ""
+            } todo-filter__filter--${currentTheme}-theme`}
           >
             All
           </button>
           <button
-            onClick={() => setFilter("in progress")}
+            onClick={setFilterInProgress}
             className={`todo-filter__filter ${
-              filter === "in progress" ? "todo-filter__filter--active" : ""
-            } todo-filter__filter--${todoCtx.theme}-theme`}
+              currentFilter === "in progress"
+                ? "todo-filter__filter--active"
+                : ""
+            } todo-filter__filter--${currentTheme}-theme`}
           >
             Active
           </button>
           <button
-            onClick={() => setFilter("done")}
+            onClick={setFilterDone}
             className={`todo-filter__filter ${
-              filter === "done" ? "todo-filter__filter--active" : ""
-            } todo-filter__filter--${todoCtx.theme}-theme`}
+              currentFilter === "done" ? "todo-filter__filter--active" : ""
+            } todo-filter__filter--${currentTheme}-theme`}
           >
             Complete
           </button>
         </div>
         <button
-          className={`todo-filter__clear todo-filter__clear--${todoCtx.theme}-theme`}
-          onClick={todoCtx.clearComplete}
+          className={`todo-filter__clear todo-filter__clear--${currentTheme}-theme`}
+          onClick={clearCompleteHandler}
         >
           Clear Completed
         </button>
       </div>
       <div
-        className={`todo-filter__filters todo-filter__filters--seperate todo-filter__filters--${todoCtx.theme}-theme`}
+        className={`todo-filter__filters todo-filter__filters--seperate todo-filter__filters--${currentTheme}-theme`}
       >
         <button
-          onClick={() => setFilter("all")}
+          onClick={setFilterAll}
           className={`todo-filter__filter ${
-            filter === "all" ? "todo-filter__filter--active" : ""
-          } todo-filter__filter--${todoCtx.theme}-theme`}
+            currentFilter === "all" ? "todo-filter__filter--active" : ""
+          } todo-filter__filter--${currentTheme}-theme`}
         >
           All
         </button>
         <button
-          onClick={() => setFilter("in progress")}
+          onClick={setFilterInProgress}
           className={`todo-filter__filter ${
-            filter === "in progress" ? "todo-filter__filter--active" : ""
-          } todo-filter__filter--${todoCtx.theme}-theme`}
+            currentFilter === "in progress" ? "todo-filter__filter--active" : ""
+          } todo-filter__filter--${currentTheme}-theme`}
         >
           Active
         </button>
         <button
-          onClick={() => setFilter("done")}
+          onClick={setFilterDone}
           className={`todo-filter__filter ${
-            filter === "done" ? "todo-filter__filter--active" : ""
-          } todo-filter__filter--${todoCtx.theme}-theme`}
+            currentFilter === "done" ? "todo-filter__filter--active" : ""
+          } todo-filter__filter--${currentTheme}-theme`}
         >
           Completed
         </button>

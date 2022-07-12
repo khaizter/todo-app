@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { ErrorMessage } from "formik";
 import EyeIcon from "../../icon/EyeIcon";
 import EyeSlashIcon from "../../icon/EyeSlashIcon";
+import { useSelector } from "react-redux";
 
 import "./CustomInput.scss";
-
 const CustomInput = ({ formikProps, type, name, label, togglePassword }) => {
   // for password
   const [currentType, setCurrentType] = useState(type);
+  const currentTheme = useSelector((state) => state.theme.theme);
 
-  const showPassHandler = () => {
+  const showPassHandler = (e) => {
     if (!togglePassword) {
       return;
     }
@@ -21,15 +22,13 @@ const CustomInput = ({ formikProps, type, name, label, togglePassword }) => {
   };
 
   return (
-    <div className="custom-input">
+    <div className={`custom-input custom-input--${currentTheme}-theme`}>
       <input
         type={currentType}
         id={name}
         name={name}
         {...formikProps.getFieldProps(name)}
         className="custom-input__input"
-        spellcheck="false"
-        formNoValidate={true}
       />
       <label
         htmlFor={name}
@@ -43,7 +42,7 @@ const CustomInput = ({ formikProps, type, name, label, togglePassword }) => {
       </p>
       {togglePassword && (
         <button
-          type="checkbox"
+          type="button"
           className="custom-input__show-password"
           onClick={showPassHandler}
         >

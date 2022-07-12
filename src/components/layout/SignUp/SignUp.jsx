@@ -1,15 +1,14 @@
 import React from "react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import TodoContext from "../../../store/todo-context";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import CustomInput from "../CustomInput/CustomInput";
+import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { signUp } from "../../../store/auth";
 
 import "./SignUp.scss";
-import { useRef } from "react";
 import { useEffect } from "react";
-import { useState } from "react";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -33,9 +32,25 @@ const initialValues = {
   confirmPassword: "",
 };
 
+const mainVariants = {
+  visible: { opacity: 1, y: 0, transition: { ease: "easeOut", duration: 0.4 } },
+  hidden: { opacity: 0, y: 50, transition: { ease: "easeOut", duration: 0.4 } },
+  leave: { opacity: 0, transition: { ease: "easeOut", duration: 0.4 } },
+};
+
+let setErrors = null;
+
 const SignUp = () => {
-  const todoCtx = useContext(TodoContext);
-  const [isNameActive, setIsNameActive] = useState(false);
+  const currentErrors = useSelector((state) => state.error.errors);
+  const currentTheme = useSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!setErrors) {
+      return;
+    }
+    setErrors(currentErrors);
+  }, [setErrors, currentErrors]);
 
   const submitHandler = (values, actions) => {
     const formData = {
@@ -44,11 +59,18 @@ const SignUp = () => {
       password: values.password,
     };
     console.log(formData);
-    todoCtx.signup(formData, actions.setErrors);
+    dispatch(signUp(formData));
+    setErrors = actions.setErrors;
   };
 
   return (
-    <main className="signup">
+    <motion.main
+      className={`signup signup--${currentTheme}-theme`}
+      variants={mainVariants}
+      initial="hidden"
+      animate="visible"
+      exit="leave"
+    >
       <h1 className="signup__title">Sign Up</h1>
       <Formik
         initialValues={initialValues}
@@ -56,7 +78,7 @@ const SignUp = () => {
         onSubmit={submitHandler}
       >
         {(props) => (
-          <Form className="signup__form" autoComplete="off" novalidate>
+          <Form className="signup__form" autoComplete="off">
             <CustomInput
               formikProps={props}
               type="text"
@@ -89,7 +111,7 @@ const SignUp = () => {
         )}
       </Formik>
       <Link to="/signin">Already have an account?</Link>
-    </main>
+    </motion.main>
   );
 };
 

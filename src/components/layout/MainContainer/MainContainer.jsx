@@ -1,19 +1,19 @@
 import "./MainContainer.scss";
-import React, { Fragment, useContext } from "react";
-import TodoContext from "../../../store/todo-context";
+import React, { Fragment } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import darkMobileImage from "../../../images/bg-mobile-dark.jpg";
 import lightMobileImage from "../../../images/bg-mobile-light.jpg";
 import darkDesktopImage from "../../../images/bg-desktop-dark.jpg";
 import lightDesktopImage from "../../../images/bg-desktop-light.jpg";
+import { useSelector } from "react-redux";
 
 const MainContainer = ({ children }) => {
-  const todoCtx = useContext(TodoContext);
+  const currentTheme = useSelector((state) => state.theme.theme);
 
   return (
-    <div className={`main-container main-container--${todoCtx.theme}-theme`}>
+    <div className={`main-container main-container--${currentTheme}-theme`}>
       <AnimatePresence>
-        {todoCtx.theme === "dark" && (
+        {currentTheme === "dark" && (
           <Fragment>
             <motion.img
               key="mobile"
@@ -39,7 +39,7 @@ const MainContainer = ({ children }) => {
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {todoCtx.theme === "light" && (
+        {currentTheme === "light" && (
           <Fragment>
             <motion.img
               key="mobile"

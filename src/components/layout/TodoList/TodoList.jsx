@@ -1,10 +1,12 @@
 import "./TodoList.scss";
-import React, { useContext } from "react";
+import React from "react";
 import TodoItem from "../TodoItem/TodoItem";
 import TodoFilter from "../TodoFilter/TodoFilter";
-import TodoContext from "../../../store/todo-context";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { AnimatePresence, motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { reorderTasks, fetchItems } from "../../../store/todo";
+import { useEffect } from "react";
 
 const todoListVariants = {
   visible: { opacity: 1, y: 0 },
@@ -12,12 +14,22 @@ const todoListVariants = {
 };
 
 const TodoList = () => {
-  const todoCtx = useContext(TodoContext);
+  const currentTheme = useSelector((state) => state.theme.theme);
+  const filteredItems = useSelector((state) => {
+    return state.todo.filter === "all"
+      ? state.todo.items
+      : state.todo.items.filter((item) => item.status === state.todo.filter);
+  });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, []);
 
   const onDragEndHandler = (result) => {
-    const sourceItem = todoCtx.filteredItems[result.source.index];
-    const destinationItem = todoCtx.filteredItems[result.destination.index];
-    todoCtx.reorderItems(sourceItem, destinationItem);
+    const sourceItem = filteredItems[result.source.index];
+    const destinationItem = filteredItems[result.destination.index];
+    dispatch(reorderTasks(sourceItem, destinationItem));
   };
 
   return (
@@ -31,17 +43,17 @@ const TodoList = () => {
         staggerChildren: 0.2,
       }}
     >
-      {todoCtx.filteredItems.length ? (
+      {filteredItems.length ? (
         <DragDropContext onDragEnd={onDragEndHandler}>
           <Droppable droppableId="todo-list">
             {(provided) => (
               <motion.ul
-                className={`todo-list__items todo-list__items--${todoCtx.theme}-theme`}
+                className={`todo-list__items todo-list__items--${currentTheme}-theme`}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
                 <AnimatePresence>
-                  {todoCtx.filteredItems.map((item, index) => (
+                  {filteredItems.map((item, index) => (
                     <TodoItem key={item._id} item={item} index={index} />
                   ))}
                 </AnimatePresence>
@@ -52,7 +64,7 @@ const TodoList = () => {
         </DragDropContext>
       ) : (
         <div
-          className={`todo-list__empty todo-list__empty--${todoCtx.theme}-theme`}
+          className={`todo-list__empty todo-list__empty--${currentTheme}-theme`}
         >
           The list is empty
         </div>

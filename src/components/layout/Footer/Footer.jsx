@@ -1,11 +1,11 @@
 import "./Footer.scss";
-import React, { useContext } from "react";
-import TodoContext from "../../../store/todo-context";
+import React from "react";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
-  const todoCtx = useContext(TodoContext);
+  const currentTheme = useSelector((state) => state.theme.theme);
   return (
-    <footer className={`footer footer--${todoCtx.theme}-theme`}>
+    <footer className={`footer footer--${currentTheme}-theme`}>
       <p>
         Challenge by{" "}
         <a

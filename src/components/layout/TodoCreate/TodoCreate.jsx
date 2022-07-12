@@ -1,8 +1,9 @@
 import "./TodoCreate.scss";
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import CheckIcon from "../../icon/CheckIcon";
-import TodoContext from "../../../store/todo-context";
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import { createTask } from "../../../store/todo";
 
 const todoCreateVariants = {
   visible: { opacity: 1, y: 0 },
@@ -12,16 +13,20 @@ const todoCreateVariants = {
 const TodoCreate = () => {
   const [status, setStatus] = useState("in progress");
   const inputRef = useRef();
-  const todoCtx = useContext(TodoContext);
+  const currentTheme = useSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
 
   const createTodoHandler = () => {
     if (inputRef.current.value.trim() === "") {
       return;
     }
-    todoCtx.createTodo({
-      task: inputRef.current.value,
-      status: status,
-    });
+
+    dispatch(
+      createTask({
+        task: inputRef.current.value,
+        status: status,
+      })
+    );
 
     inputRef.current.value = "";
   };
@@ -34,14 +39,14 @@ const TodoCreate = () => {
 
   return (
     <motion.section
-      className={`todo-create todo-create--${todoCtx.theme}-theme`}
+      className={`todo-create todo-create--${currentTheme}-theme`}
       variants={todoCreateVariants}
       transition={{ ease: "easeOut", duration: 0.5 }}
     >
       <button
         className={`todo-create__bullet ${
           status === "done" ? "todo-create__bullet--complete" : ""
-        } todo-create__bullet--${todoCtx.theme}-theme`}
+        } todo-create__bullet--${currentTheme}-theme`}
         onClick={toggleStatusHandler}
       >
         <CheckIcon />
