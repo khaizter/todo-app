@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { setErrors } from "../error";
 
-const SERVER_DOMAIN = "http://localhost:8080";
+// const SERVER_DOMAIN = "http://localhost:8080";
+const SERVER_DOMAIN = "https://todo-express-mongodb-backend.herokuapp.com";
 
 const initialState = {
   token: null,
@@ -30,6 +31,7 @@ export const signUp = (formData) => async (dispatch, getState) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({
       name: formData.name,
       email: formData.email,
@@ -61,6 +63,7 @@ export const signIn = (formData) => async (dispatch, getState) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({
       email: formData.email,
       password: formData.password,
@@ -85,9 +88,38 @@ export const signIn = (formData) => async (dispatch, getState) => {
     .catch((err) => console.log(err));
 };
 
+export const refreshToken = () => async (dispatch, getState) => {
+  fetch(SERVER_DOMAIN + "/auth/refresh", {
+    method: "POST",
+    credentials: "include",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      dispatch(setToken(data.token));
+      dispatch(setName(data.userName));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export const signOut = () => async (dispatch, getState) => {
-  dispatch(setToken(null));
-  dispatch(setName(null));
+  fetch(SERVER_DOMAIN + "/auth/signout", {
+    method: "POST",
+    credentials: "include",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      dispatch(setToken(null));
+      dispatch(setName(null));
+    })
+    .catch((err) => console.log(err));
 };
 
 export default authSlice.reducer;

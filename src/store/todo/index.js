@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const SERVER_DOMAIN = "http://localhost:8080";
+// const SERVER_DOMAIN = "http://localhost:8080";
+const SERVER_DOMAIN = "https://todo-express-mongodb-backend.herokuapp.com";
 
 const initialState = {
   items: [],
@@ -33,6 +34,7 @@ export const fetchItems = () => async (dispatch, getState) => {
     headers: {
       Authorization: "Bearer " + userToken,
     },
+    credentials: "include",
   })
     .then((res) => {
       if (res.status !== 200) {
@@ -59,6 +61,7 @@ export const syncItems = (newItems) => async (dispatch, getState) => {
       Authorization: "Bearer " + userToken,
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ items: newItems || items }),
   })
     .then((res) => {
@@ -76,6 +79,7 @@ export const createTask = (item) => async (dispatch, getState) => {
       Authorization: "Bearer " + userToken,
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({
       task: item.task,
       status: item.status,
@@ -95,6 +99,7 @@ export const deleteTask = (_id) => async (dispatch, getState) => {
     headers: {
       Authorization: "Bearer " + userToken,
     },
+    credentials: "include",
   })
     .then((res) => {
       console.log(res);
@@ -113,6 +118,7 @@ export const toggleTaskStatus =
         Authorization: "Bearer " + userToken,
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         status: newStatus,
       }),
@@ -134,6 +140,7 @@ export const clearCompleteTask = () => async (dispatch, getState) => {
       Authorization: "Bearer " + userToken,
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ items: updatedItems }),
   })
     .then((res) => {
