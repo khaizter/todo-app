@@ -42,7 +42,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Github](https://github.com/khaizter/todo-app)
-- Live Site URL: [Github Page](https://khaizter.github.io/todo-app)
+- Live Site URL: [Netlify](https://todo-khaizter.netlify.app/)
 
 ## My process
 
@@ -57,6 +57,9 @@ Users should be able to:
 - [Syntactically Awesome Style Sheets](https://sass-lang.com/) - CSS Preprocessor
 - [React Beautiful DND](https://github.com/atlassian/react-beautiful-dnd) - Drag and Drop Library
 - [Framer Motion](https://www.framer.com/motion/) - Animation Library
+- [Node JS](https://nodejs.org/en/) - Back-End Server
+- [Express](https://expressjs.com/) - Node JS framework
+- [Mongo DB](https://www.mongodb.com/) - Database Solution (NoSQL)
 
 ### What I learned
 
@@ -66,10 +69,15 @@ Users should be able to:
 - Animation Practices
 - Theme Switching (Dark/Light)
 - Some Attribute Selectors
+- Developing REST API using Node JS and Express
+- Mongo DB and Object-relational Mapping(ORM)
+- Authentications, Cookies, JSON Web tokens
 
 ### Continued development
 
-- It took me some time figuring out the animations and also understanding the Framer motion library, I want to dig more deeper to this library i feel it is fun to play with and has a lot of possibilities like complex animations.
+- Multiple todo list per user
+- Edit text of task
+- Auto save or Auto sync
 
 ## Author
 
