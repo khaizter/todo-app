@@ -5,7 +5,7 @@ import CrossIcon from "../../icon/CrossIcon";
 import { Draggable } from "react-beautiful-dnd";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTaskStatus, deleteTask } from "../../../store/todo";
+import { removeItem, toggleItem } from "../../../store/todo";
 
 const itemVariants = {
   visible: { opacity: 1 },
@@ -18,11 +18,11 @@ const TodoItem = ({ item, index }) => {
   const dispatch = useDispatch();
 
   const toggleStatus = () => {
-    dispatch(toggleTaskStatus(item._id, item.status));
+    dispatch(toggleItem(item._id));
   };
 
   const deleteHandler = () => {
-    dispatch(deleteTask(item._id));
+    dispatch(removeItem(item._id));
   };
 
   return (

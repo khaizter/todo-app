@@ -56,6 +56,12 @@
     cursor: pointer;
     background-color: $bright-blue;
     color: map.get($grayish-blue-light-theme, "300");
+
+    svg {
+      display: block;
+      width: 1.125rem;
+      height: 1.125rem;
+    }
   }
 
   a {

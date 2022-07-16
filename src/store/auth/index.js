@@ -25,7 +25,7 @@ const authSlice = createSlice({
 // original actions
 export const { setToken, setName } = authSlice.actions;
 
-export const signUp = (formData) => async (dispatch, getState) => {
+export const signUp = (formData, callback) => async (dispatch, getState) => {
   fetch(SERVER_DOMAIN + "/auth/signup", {
     method: "POST",
     headers: {
@@ -41,6 +41,7 @@ export const signUp = (formData) => async (dispatch, getState) => {
     .then((res) => {
       if (!res.ok) {
         res.json().then((error) => {
+          callback();
           console.log(error);
           if (error.data) {
             dispatch(setErrors(error.data));
@@ -48,6 +49,7 @@ export const signUp = (formData) => async (dispatch, getState) => {
         });
       } else {
         res.json().then((data) => {
+          callback();
           console.log(data);
           dispatch(setToken(data.token));
           dispatch(setName(data.userName));
@@ -57,7 +59,7 @@ export const signUp = (formData) => async (dispatch, getState) => {
     .catch((err) => console.log(err));
 };
 
-export const signIn = (formData) => async (dispatch, getState) => {
+export const signIn = (formData, callback) => async (dispatch, getState) => {
   fetch(SERVER_DOMAIN + "/auth/signin", {
     method: "POST",
     headers: {
@@ -72,6 +74,7 @@ export const signIn = (formData) => async (dispatch, getState) => {
     .then((res) => {
       if (!res.ok) {
         res.json().then((error) => {
+          callback();
           console.log(error);
           if (error.data) {
             dispatch(setErrors(error.data));
@@ -79,6 +82,7 @@ export const signIn = (formData) => async (dispatch, getState) => {
         });
       } else {
         res.json().then((data) => {
+          callback();
           console.log(data);
           dispatch(setToken(data.token));
           dispatch(setName(data.userName));

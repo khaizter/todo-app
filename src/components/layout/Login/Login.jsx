@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
@@ -6,6 +6,7 @@ import CustomInput from "../CustomInput/CustomInput";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { signIn } from "../../../store/auth";
+import SpinnerIcon from "../../icon/SpinnerIcon";
 
 import "./Login.scss";
 
@@ -32,6 +33,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const currentErrors = useSelector((state) => state.error.errors);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (!setErrors) {
       return;
@@ -39,13 +42,17 @@ const Login = () => {
     setErrors(currentErrors);
   }, [setErrors, currentErrors]);
 
+  const finishLoading = () => {
+    setIsLoading(false);
+  };
+
   const submitHandler = (values, actions) => {
+    setIsLoading(true);
     const formData = {
       email: values.email,
       password: values.password,
     };
-    console.log(formData);
-    dispatch(signIn(formData));
+    dispatch(signIn(formData, finishLoading));
     setErrors = actions.setErrors;
   };
 
@@ -80,7 +87,9 @@ const Login = () => {
               togglePassword={true}
             />
 
-            <button className="login__submit">Sign In</button>
+            <button className="login__submit">
+              {isLoading ? <SpinnerIcon /> : "Sign In"}
+            </button>
           </Form>
         )}
       </Formik>

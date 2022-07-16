@@ -1,13 +1,17 @@
 import "./Header.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SunIcon from "../../icon/SunIcon";
 import MoonIcon from "../../icon/MoonIcon";
 import ArrowIcon from "../../icon/ArrowIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import LogoutIcon from "../../icon/LogoutIcon";
+import SaveIcon from "../../icon/SaveIcon";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../../../store/theme";
 import { signOut } from "../../../store/auth";
+import { saveItems } from "../../../store/todo";
+import SpinnerIcon from "../../icon/SpinnerIcon";
+import CheckIcon from "../../icon/CheckIcon";
 
 const dropDownVariants = {
   hidden: {
@@ -28,10 +32,39 @@ const Header = () => {
   const currentTheme = useSelector((state) => state.theme.theme);
   const currentToken = useSelector((state) => state.auth.token);
   const currentUser = useSelector((state) => state.auth.name);
+
+  const [isSaveLoading, setIsSaveLoading] = useState(false);
+
+  const [showCheck, setShowCheck] = useState(false);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!showCheck) {
+      return;
+    }
+    const checkTimeout = setTimeout(() => {
+      setShowCheck(false);
+    }, 1500);
+
+    return () => {
+      clearTimeout(checkTimeout);
+    };
+  }, [showCheck, setShowCheck]);
 
   const menuToggleHandler = () => {
     setShowMenu((prevState) => !prevState);
+  };
+
+  const saveHandler = () => {
+    setIsSaveLoading(true);
+    dispatch(
+      saveItems(() => {
+        setIsSaveLoading(false);
+        setShowCheck(true);
+      })
+    );
+    setShowMenu(false);
   };
 
   const logoutHandler = () => {
@@ -65,6 +98,21 @@ const Header = () => {
             <button onClick={menuToggleHandler} className="header__user">
               <span>{currentUser}</span>
               <ArrowIcon />
+              <div className="header__saved">
+                {isSaveLoading ? (
+                  <>
+                    <SaveIcon />
+                    <SpinnerIcon className="header__spinner" />
+                  </>
+                ) : showCheck ? (
+                  <>
+                    <SaveIcon />
+                    <CheckIcon className="header__check" />
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
             </button>
             <AnimatePresence>
               {showMenu && (
@@ -75,6 +123,10 @@ const Header = () => {
                   animate="visible"
                   exit="hidden"
                 >
+                  <button onClick={saveHandler}>
+                    <span>Save</span>
+                    <SaveIcon />
+                  </button>
                   <button onClick={logoutHandler}>
                     <span>Logout</span>
                     <LogoutIcon />

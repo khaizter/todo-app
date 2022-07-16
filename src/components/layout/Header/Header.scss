@@ -9,7 +9,7 @@
   margin-inline: auto;
   margin-bottom: 1.25rem;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   transition: all 0.5s ease-out;
 
   &--dark-theme {
@@ -56,6 +56,7 @@
     background: none;
     border: none;
     cursor: pointer;
+    position: relative;
     svg {
       display: block;
       width: 14px;
@@ -64,12 +65,35 @@
     }
   }
 
+  &__saved {
+    position: absolute;
+    padding: 0.25rem;
+    left: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__spinner {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &__check {
+    color: rgb(49, 204, 49) !important;
+  }
+
   &__drop-down {
     padding: 0.5rem;
     position: absolute;
     top: calc(100% + 0.1rem);
     right: 0;
     border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+      0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
 
     &--dark-theme {
       background-color: map.get($dark-blue-dark-theme, "600");
@@ -99,6 +123,7 @@
       cursor: pointer;
       color: inherit;
       font-size: $fs-400;
+      margin-left: auto;
       svg {
         display: block;
         color: inherit;

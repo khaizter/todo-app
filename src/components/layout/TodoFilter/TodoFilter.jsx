@@ -2,7 +2,8 @@ import "./TodoFilter.scss";
 import React from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { clearCompleteTask, setFilter } from "../../../store/todo";
+import { setFilter } from "../../../store/todo";
+import { clearComplete } from "../../../store/todo";
 
 const TodoFilter = () => {
   const currentFilter = useSelector((state) => state.todo.filter);
@@ -27,7 +28,7 @@ const TodoFilter = () => {
   };
 
   const clearCompleteHandler = () => {
-    dispatch(clearCompleteTask());
+    dispatch(clearComplete());
   };
 
   return (

@@ -5,8 +5,9 @@ import TodoFilter from "../TodoFilter/TodoFilter";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { reorderTasks, fetchItems } from "../../../store/todo";
+import { fetchItems } from "../../../store/todo";
 import { useEffect } from "react";
+import { reorderItems } from "../../../store/todo";
 
 const todoListVariants = {
   visible: { opacity: 1, y: 0 },
@@ -29,7 +30,12 @@ const TodoList = () => {
   const onDragEndHandler = (result) => {
     const sourceItem = filteredItems[result.source.index];
     const destinationItem = filteredItems[result.destination.index];
-    dispatch(reorderTasks(sourceItem, destinationItem));
+    dispatch(
+      reorderItems({
+        source: sourceItem,
+        destination: destinationItem,
+      })
+    );
   };
 
   return (

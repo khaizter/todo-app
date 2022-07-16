@@ -3,7 +3,8 @@ import React, { useState, useRef } from "react";
 import CheckIcon from "../../icon/CheckIcon";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
-import { createTask } from "../../../store/todo";
+import { addItem } from "../../../store/todo";
+import generateUniqueId from "../../../helpers/generate-id";
 
 const todoCreateVariants = {
   visible: { opacity: 1, y: 0 },
@@ -20,11 +21,11 @@ const TodoCreate = () => {
     if (inputRef.current.value.trim() === "") {
       return;
     }
-
     dispatch(
-      createTask({
+      addItem({
         task: inputRef.current.value,
         status: status,
+        _id: generateUniqueId(),
       })
     );
 

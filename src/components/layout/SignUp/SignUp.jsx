@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
@@ -6,6 +6,7 @@ import CustomInput from "../CustomInput/CustomInput";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { signUp } from "../../../store/auth";
+import SpinnerIcon from "../../icon/SpinnerIcon";
 
 import "./SignUp.scss";
 import { useEffect } from "react";
@@ -45,12 +46,18 @@ const SignUp = () => {
   const currentTheme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (!setErrors) {
       return;
     }
     setErrors(currentErrors);
   }, [setErrors, currentErrors]);
+
+  const finishLoading = () => {
+    setIsLoading(false);
+  };
 
   const submitHandler = (values, actions) => {
     const formData = {
@@ -59,7 +66,7 @@ const SignUp = () => {
       password: values.password,
     };
     console.log(formData);
-    dispatch(signUp(formData));
+    dispatch(signUp(formData, finishLoading));
     setErrors = actions.setErrors;
   };
 
@@ -105,7 +112,7 @@ const SignUp = () => {
               label="Confirm Password"
             />
             <button type="submit" className="signup__submit">
-              Sign Up
+              {isLoading ? <SpinnerIcon /> : "Sign Up"}
             </button>
           </Form>
         )}
