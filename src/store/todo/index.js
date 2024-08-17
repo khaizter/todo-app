@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // const SERVER_DOMAIN = "http://localhost:8080";
-const SERVER_DOMAIN = "https://todo-express-mongodb-backend.herokuapp.com";
+const SERVER_DOMAIN = process.env.REACT_APP_BACKEND_URI;
 
 const initialState = {
   items: [],
